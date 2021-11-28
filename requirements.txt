@@ -1,0 +1,6 @@
+pika
+requests
+slack
+elasticsearch
+asyncio
+typeguard

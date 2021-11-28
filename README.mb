@@ -1,0 +1,8 @@
+### Build Docker-compose
+
+- [x] docker-compose --env=.env-development up --build
+
+### Build Docker
+
+- [x] docker build -t worker-consumer -f docker/Dockerfile .
+
