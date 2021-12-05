@@ -2,17 +2,17 @@
 import os
 import json
 import asyncio
-from .ApiReportService import ApiReportService
+from .ApiTradeService import ApiTradeService
 from infra.lib.Validate import Validate
 from typeguard import typechecked
 
 
 @typechecked
-class ServiceRunTrade(ApiReportService, Validate):
+class ServiceRunTrade(ApiTradeService, Validate):
 
     def __init__(self, config:dict) -> None:
         self._config = config
-        self._apiService = ApiReportService()
+        self._apiService = ApiTradeService()
         self._validate = Validate()
 
     async def run(self) -> None:
