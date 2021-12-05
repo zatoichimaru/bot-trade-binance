@@ -15,18 +15,16 @@ class Validate:
     
     def is_uuid(self, value:str) -> bool:
         try:
-            self.is_empty(value)
-            uuid.UUID(value)
-    
-            return True
+            if(self.is_empty(value) == False):
+                uuid.UUID(value)
+                return True
+
+            return False 
         except ValueError:
             return False
 
-    def is_empty(self, value:any) -> bool:
+    def is_empty(self, value:str) -> bool:
         try:
-            if not value or len(value) == 0:
-                return False
-
-            return True
-        except ValueError:
-            return False
+            return (len(value) <= 0) == True
+        except ValueError as error:
+            raise Exception("{} - Fail valueError [{}]".format(__class__, error))

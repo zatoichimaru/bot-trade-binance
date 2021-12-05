@@ -1,79 +1,23 @@
 version: "3.7"
 
 services:
-  rabbitmq:
-    image: rabbitmq:3.9-management-alpine
-    container_name: rabbitmq
-    restart: always
-    ports:
-      - '5672:5672'
-      - '15672:15672'
-    volumes:
-      - 'data-rabbit:/data'
-    env_file:
-      - .env-local
-    networks:
-      - default
-      - mzgroup
 
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.1
-    container_name: elasticsearch
-    restart: always
-    ports:
-      - '9200:9200'
-      - '9300:9300'
-    environment:
-      - discovery.type=single-node
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    volumes: 
-      - data-elastic:/usr/share/elasticsearch/data   
-    networks:
-      - default
-      - mzgroup
-
-  kibana:
-    image: docker.elastic.co/kibana/kibana:7.15.1
-    container_name: kibana
-    restart: always
-    ports:
-      - "5601:5601"
-    env_file:
-      - .env-local
-    depends_on:
-      - elasticsearch
-    networks:
-      - default
-      - mzgroup
-
-  work-receive:
-    container_name: work-receive
+  bot-trade-binance:
+    container_name: bot-trade-binance
     build: .
     env_file:
-      - .env-local
+      - .env-${APP_ENV}
     ports:
-      - '8001:8001'
-    depends_on:
-      - rabbitmq
-      - elasticsearch
-      - kibana
+      - '${APP_PORT}:${APP_PORT}'
     volumes:
       - "./src:/src"
-    links:
-      - rabbitmq
-      - elasticsearch
     networks:
       - default
-      - mzgroup
-
-volumes:
-  data-rabbit:
-  data-elastic:
+      - nmb
 
 networks:
   default:
-    name: mzgroup
+    name: nmb
     driver: bridge
-  mzgroup:
+  nmb:
     external: true

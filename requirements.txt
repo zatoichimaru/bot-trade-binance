@@ -1,6 +1,4 @@
-pika
-requests
-slack
-elasticsearch
-asyncio
+websocket_client
 typeguard
+numpy
+python-binance
