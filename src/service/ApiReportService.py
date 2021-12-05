@@ -6,7 +6,7 @@ from typing import Dict
 from infra.lib.Api import Api
 from infra.lib.Validate import Validate
 
-class ApiReportService(Api, Validate):
+class ApiTradeService(Api, Validate):
     def __init__(self) -> None:
         self._api = Api()
         self._validate = Validate()
